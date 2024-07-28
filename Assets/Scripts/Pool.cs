@@ -11,10 +11,13 @@ public class Pool<T> : MonoBehaviour where T : MonoBehaviour
     public void Release(T @object)
     {
         if (_pool.Contains(@object) == false)
+        {
             _pool.Add(@object);
+            @object.gameObject.SetActive(false);
+        }
     }
 
-    public T Return()
+    public T Get()
     {
         if (_pool.Count != 0)
         {

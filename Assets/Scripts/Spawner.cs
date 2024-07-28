@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private Transform[] _spawnPosition;
-    [SerializeField] private Transform _cube;
+    [SerializeField] private Cube _cube;
     [SerializeField] private ObjectPoolCube _pool;
 
     private int _spawnCount = 10;
@@ -19,10 +19,18 @@ public class Spawner : MonoBehaviour
     {
         for (int i = 0; i < _spawnPosition.Length; i++)
         {
-            Cube cube = _pool.Return();
+            Cube cube = _pool.Get();
             cube.gameObject.SetActive(true);
+            cube.ChangeColor();
             cube.transform.position = _spawnPosition[i].position;
+            cube.Died += PoolReturn;
         }
+    }
+
+    private void PoolReturn(Cube cube)
+    {
+        cube.Died -= PoolReturn;
+        _pool.Release(cube);
     }
 
     private IEnumerator CubesGenerator()

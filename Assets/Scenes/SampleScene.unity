@@ -1200,8 +1200,8 @@ MonoBehaviour:
   - {fileID: 623416773}
   - {fileID: 1942127752}
   - {fileID: 250592714}
-  _cube: {fileID: 8037901714854790937, guid: 6e9772d1f7afa4142b00c2bb9cb3a29a, type: 3}
-  _pool: {fileID: 2351044248476924589, guid: 6e9772d1f7afa4142b00c2bb9cb3a29a, type: 3}
+  _cube: {fileID: 9136639888187903676, guid: 6e9772d1f7afa4142b00c2bb9cb3a29a, type: 3}
+  _pool: {fileID: 7727109142521650142, guid: 6e9772d1f7afa4142b00c2bb9cb3a29a, type: 3}
 --- !u!33 &2000045697
 MeshFilter:
   m_ObjectHideFlags: 0
