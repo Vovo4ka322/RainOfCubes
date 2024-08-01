@@ -10,16 +10,20 @@ public class Cube : MonoBehaviour
     private float _minValue = 2;
     private float _maxValue = 5;
     private float _random;
+    private bool _isTouch = false;
 
     public event Action<Cube> Died;
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.GetComponent<Platform>())
+        if (collision.collider.GetComponent<Platform>() && _isTouch == false)
         {
+            _isTouch = true;
+
             _renderer.material.color = UnityEngine.Random.ColorHSV();
 
             StartCoroutine(CubeRemover());
+
         }
     }
 
@@ -37,5 +41,10 @@ public class Cube : MonoBehaviour
     public void ChangeColor()
     {
         _renderer.material.color = Color.white;
+    }
+
+    public void ChangeTouch()
+    {
+        _isTouch = false;
     }
 }

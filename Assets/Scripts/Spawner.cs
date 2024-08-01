@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -10,7 +9,7 @@ public class Spawner : MonoBehaviour
 
     private int _spawnCount = 10;
 
-    void Start()
+    private void Start()
     {
         StartCoroutine(CubesGenerator());
     }
@@ -24,6 +23,7 @@ public class Spawner : MonoBehaviour
             cube.ChangeColor();
             cube.transform.position = _spawnPosition[i].position;
             cube.Died += PoolReturn;
+            cube.ChangeTouch();
         }
     }
 
