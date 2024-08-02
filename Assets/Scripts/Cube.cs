@@ -9,7 +9,6 @@ public class Cube : MonoBehaviour
 
     private float _minValue = 2;
     private float _maxValue = 5;
-    private float _random;
     private bool _isTouch = false;
 
     public event Action<Cube> Died;
@@ -23,27 +22,26 @@ public class Cube : MonoBehaviour
             _renderer.material.color = UnityEngine.Random.ColorHSV();
 
             StartCoroutine(CubeRemover());
-
         }
     }
 
     private IEnumerator CubeRemover()
     {
-        _random = UnityEngine.Random.Range(_minValue, _maxValue + 1);
+        float random = UnityEngine.Random.Range(_minValue, _maxValue + 1);
 
-        WaitForSeconds timeToRemove = new(_random);
+        WaitForSeconds timeToRemove = new(random);
 
         yield return timeToRemove;
 
         Died?.Invoke(this);
     }
 
-    public void ChangeColor()
+    public Color ReturnOriginalColor()
     {
-        _renderer.material.color = Color.white;
+        return _renderer.material.color = Color.white;
     }
 
-    public void ChangeTouch()
+    public void ChangeTouchOnFalse()
     {
         _isTouch = false;
     }

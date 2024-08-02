@@ -5,24 +5,24 @@ public class Pool<T> : MonoBehaviour where T : MonoBehaviour
 {
     [SerializeField] private T _object;
 
-    private List<T> _pool = new();
+    private List<T> _objectStorage = new();
 
     public void Release(T @object)
     {
-        if (_pool.Contains(@object) == false)
+        if (_objectStorage.Contains(@object) == false)
         {
-            _pool.Add(@object);
+            _objectStorage.Add(@object);
             @object.gameObject.SetActive(false);
         }
     }
 
     public T Get()
     {
-        if (_pool.Count != 0)
+        if (_objectStorage.Count != 0)
         {
-            T firstElement = _pool[0];
+            T firstElement = _objectStorage[0];
 
-            _pool.Remove(firstElement);
+            _objectStorage.Remove(firstElement);
 
             return firstElement;
         }

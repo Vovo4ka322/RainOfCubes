@@ -7,30 +7,11 @@ public class Spawner : MonoBehaviour
     [SerializeField] private Cube _cube;
     [SerializeField] private ObjectPoolCube _pool;
 
-    private int _spawnCount = 10;
+    private float _spawnCount = 0.4f;
 
     private void Start()
     {
         StartCoroutine(CubesGenerator());
-    }
-
-    private void CreateCubes()
-    {
-        for (int i = 0; i < _spawnPosition.Length; i++)
-        {
-            Cube cube = _pool.Get();
-            cube.gameObject.SetActive(true);
-            cube.ChangeColor();
-            cube.transform.position = _spawnPosition[i].position;
-            cube.Died += PoolReturn;
-            cube.ChangeTouch();
-        }
-    }
-
-    private void PoolReturn(Cube cube)
-    {
-        cube.Died -= PoolReturn;
-        _pool.Release(cube);
     }
 
     private IEnumerator CubesGenerator()
@@ -43,5 +24,24 @@ public class Spawner : MonoBehaviour
 
             yield return timeToSpawn;
         }
+    }
+
+    private void CreateCubes()
+    {
+        int randomPosition = Random.Range(0, _spawnPosition.Length);
+
+        Cube cube = _pool.Get();
+        cube.gameObject.SetActive(true);
+        cube.ReturnOriginalColor();
+        cube.transform.position = _spawnPosition[randomPosition].position;
+        cube.Died += PoolReturn;
+        cube.ChangeTouchOnFalse();
+
+    }
+
+    private void PoolReturn(Cube cube)
+    {
+        cube.Died -= PoolReturn;
+        _pool.Release(cube);
     }
 }
